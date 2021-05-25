@@ -1,0 +1,13 @@
+{
+    "projects":{
+        "main":{
+            "projectDir": "projects\\main\\",
+            "outputDir": "projects\\main\\bin\\",
+        },
+        "c_dll":{
+            "projectDir": "projects\\c_dll\\",
+            "outputDir": "projects\\c_dll\\bin\\",
+        }
+    },
+    "python.pythonPath": "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python39\\python.exe"
+}
