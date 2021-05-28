@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
-#include "encr_decr_block.h"
-#include "get_key.h"
+#include "Main functions/encr_decr_block.h"
+#include "Main functions/get_key.h"
 
 size_t str_len_in_bytes(const char *s)
 {
@@ -19,18 +19,36 @@ int main()
 {
     // Testing encrypting and decrypting
     int encrypt_test = 1;
-    int decrypt_test = 1; 
+    int decrypt_test = 1;
+
     // Testing encrypring 
-    uint8_t testing_example[4][4] = {{0x32, 0x88, 0x31, 0xe0},
+    // Testing_example_encryption == state
+    uint8_t testing_example_encryption[4][4] = {{0x32, 0x88, 0x31, 0xe0},
+        {0x43, 0x5a, 0x31, 0x37},
+        {0xf6, 0x30, 0x98, 0x07},
+        {0xa8, 0x8d, 0xa2, 0x34}
+    };
+    
+    // State - clean message 
+    uint8_t state[4][4] = {{0x32, 0x88, 0x31, 0xe0},
         {0x43, 0x5a, 0x31, 0x37},
         {0xf6, 0x30, 0x98, 0x07},
         {0xa8, 0x8d, 0xa2, 0x34}
     };
 
-    uint8_t state[4][4] = {{0x32, 0x88, 0x31, 0xe0},
-        {0x43, 0x5a, 0x31, 0x37},
-        {0xf6, 0x30, 0x98, 0x07},
-        {0xa8, 0x8d, 0xa2, 0x34}
+    // Encrypted_state - needed message after encrypting state
+    // Encrypted_state = testing_example_decryption
+    uint8_t encrypted_state[4][4] = {{0x39, 0x02, 0xdc, 0x19},
+        {0x25, 0xdc, 0x11, 0x6a},
+        {0x84, 0x09, 0x85, 0x0b},
+        {0x1d, 0xfb, 0x97, 0x32}
+    };
+
+    // After decryption should be testing_example_decryption == state 
+    uint8_t testing_example_decryption[4][4] = {{0x39, 0x02, 0xdc, 0x19},
+        {0x25, 0xdc, 0x11, 0x6a},
+        {0x84, 0x09, 0x85, 0x0b},
+        {0x1d, 0xfb, 0x97, 0x32}
     };
 
     uint8_t key[4][4] = {{0x2b, 0x28, 0xab, 0x09},
@@ -38,19 +56,13 @@ int main()
         {0x15, 0xd2, 0x15, 0x4f},
         {0x16, 0xa6, 0x88, 0x3c}
     };
-
-    uint8_t encrypted_message[4][4] = {{0x39, 0x02, 0xdc, 0x19},
-        {0x25, 0xdc, 0x11, 0x6a},
-        {0x84, 0x09, 0x85, 0x0b},
-        {0x1d, 0xfb, 0x97, 0x32}
-    };
-
-    encrypting_block(testing_example, key);
+    
+    encrypting_block(testing_example_encryption, key);
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 4; j++)
         {
-            if (testing_example[i][j] != encrypted_message[i][j])
+            if (testing_example_encryption[i][j] != encrypted_state[i][j])
             {
                 encrypt_test = 0;
                 break;
@@ -64,7 +76,7 @@ int main()
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    printf("%x ", testing_example[i][j]);
+                    printf("%x ", testing_example_encryption[i][j]);
                 }
                 printf("\n");
             }
@@ -73,22 +85,26 @@ int main()
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    printf("%x ", encrypted_message[i][j]);
+                    printf("%x ", encrypted_state[i][j]);
                 }
                 printf("\n");
             }
-            return 0;
+            printf("\n");
+            break;
         }
     }
-    printf("Encryption test passed!\n\n");
-    
+    if (encrypt_test == 1)
+    {
+        printf("Encryption test passed!\n\n");
+    }
+
     // Testing decrypring 
-    decrypting_block(testing_example, key);
+    decrypting_block(testing_example_decryption, key);
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 4; j++)
         {
-            if (testing_example[i][j] != state[i][j])
+            if (testing_example_decryption[i][j] != state[i][j])
             {
                 decrypt_test = 0;
                 break;
@@ -102,7 +118,7 @@ int main()
             {
                 for (int j = 0; j < 4; j++)
                 {
-                    printf("%x ", testing_example[i][j]);
+                    printf("%x ", testing_example_decryption[i][j]);
                 }
                 printf("\n");
             }
@@ -115,11 +131,15 @@ int main()
                 }
                 printf("\n");
             }
-            return 0;
+            printf("\n");
+            break;
         }
     }
-    printf("Decryption test passed!\n\n");
-    
+    if (decrypt_test == 1)
+    {
+        printf("Decryption test passed!\n\n");
+    }
+
     // Testing SHA-256
     // Testing phrase "test_to_check"
     int hash_test = 1;
@@ -150,9 +170,13 @@ int main()
         {
             printf("%x ", hash_needed[i]);
         }
-        return 0;
+        printf("\n");
     }
-    printf("Hash test passed!\n");
+    else
+    {
+        printf("Hash test passed!\n");
+    }
+
     getchar();
     return 0;
 }

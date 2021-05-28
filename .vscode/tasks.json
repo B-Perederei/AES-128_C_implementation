@@ -19,7 +19,26 @@
 			"type": "cppbuild",
 			"label": "build main.exe",
 			"command": "gcc.exe",
-			"args": [ "-x", "c", "-Wall", "-g", "${workspaceFolder}\\${config:projects.main.projectDir}\\*.c", "-o", "${workspaceFolder}\\${config:projects.main.outputDir}main.exe",
+			"args": [ "-x", "c", "-Wall", "-g", 
+				"${workspaceFolder}\\${config:projects.main.projectDir}\\main.c", "${workspaceFolder}\\${config:projects.main.mainfunctionsDir}\\*.c",
+				"-o", "${workspaceFolder}\\${config:projects.main.outputDir}main.exe",
+				"&", "xcopy", "${workspaceFolder}\\${config:projects.main.projectDir}\\main.ini", "${workspaceFolder}\\${config:projects.main.outputDir}", "/Y"],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": ["$gcc"],
+			"group": "build",
+			"detail": "compiler: \"gcc.exe\"",
+			"dependsOn":["Create temp folders for project Main"]
+		},
+		// =======Unit_tests_build=======
+		{
+			"type": "cppbuild",
+			"label": "build unit_tests.exe",
+			"command": "gcc.exe",
+			"args": [ "-x", "c", "-Wall", "-g", 
+				"${workspaceFolder}\\${config:projects.main.projectDir}\\unit_tests.c", "${workspaceFolder}\\${config:projects.main.mainfunctionsDir}\\*.c",
+				"-o", "${workspaceFolder}\\${config:projects.main.outputDir}unit_tests.exe",
 				"&", "xcopy", "${workspaceFolder}\\${config:projects.main.projectDir}\\main.ini", "${workspaceFolder}\\${config:projects.main.outputDir}", "/Y"],
 			"options": {
 				"cwd": "${workspaceFolder}"
