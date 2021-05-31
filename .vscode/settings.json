@@ -1,0 +1,21 @@
+{
+    "projects":{
+        "main":{
+            "projectDir": "projects\\main\\",
+            "outputDir": "projects\\main\\bin\\",
+            "mainfunctionsDir": "projects\\main\\Main functions"
+        },
+        "c_dll":{
+            "projectDir": "projects\\c_dll\\",
+            "outputDir": "projects\\c_dll\\bin\\",
+        }
+    },
+    "python.pythonPath": "C:\\Users\\user\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
+    "files.associations": {
+        "encr_decr_block.h": "c",
+        "get_key.h": "c",
+        "ini.h": "c",
+        "stdint.h": "c",
+        "logging.h": "c"
+    }
+}
