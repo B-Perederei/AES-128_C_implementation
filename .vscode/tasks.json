@@ -19,7 +19,7 @@
 			"type": "cppbuild",
 			"label": "build main.exe",
 			"command": "gcc.exe",
-			"args": [ "-x", "c", "-Wall", "-g", 
+			"args": [ "-x", "c", "-Wall", "-g", "-O3",
 				"${workspaceFolder}\\${config:projects.main.projectDir}\\main.c", "${workspaceFolder}\\${config:projects.main.mainfunctionsDir}\\*.c",
 				"-o", "${workspaceFolder}\\${config:projects.main.outputDir}main.exe",
 				"&", "xcopy", "${workspaceFolder}\\${config:projects.main.projectDir}\\main.ini", "${workspaceFolder}\\${config:projects.main.outputDir}", "/Y"],
@@ -66,7 +66,8 @@
 			"type": "cppbuild",
 			"label": "build c_dll.dll",
 			"command": "gcc.exe",
-			"args": [ "-x", "c", "-shared", "-Wall", "-g", "${workspaceFolder}\\${config:projects.c_dll.projectDir}*.c", 
+			"args": [ "-x", "c", "-shared", "-Wall", "-g", "-O3", "${workspaceFolder}\\${config:projects.c_dll.projectDir}*.c",
+				"${workspaceFolder}\\${config:projects.main.mainfunctionsDir}\\*.c",
 				"-o", "${workspaceFolder}\\${config:projects.c_dll.outputDir}c_dll.dll"],
 			"options": {
 				"cwd": "${workspaceFolder}"

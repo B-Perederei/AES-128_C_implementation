@@ -28,7 +28,7 @@ int main()
         {0xf6, 0x30, 0x98, 0x07},
         {0xa8, 0x8d, 0xa2, 0x34}
     };
-    
+
     // State - clean message 
     uint8_t state[4][4] = {{0x32, 0x88, 0x31, 0xe0},
         {0x43, 0x5a, 0x31, 0x37},
@@ -60,6 +60,7 @@ int main()
     encrypting_block(testing_example_encryption, key);
     for (int i = 0; i < 4; i++)
     {
+        // Checking row by row and rising error if rows aren't equal
         for (int j = 0; j < 4; j++)
         {
             if (testing_example_encryption[i][j] != encrypted_state[i][j])
@@ -70,6 +71,7 @@ int main()
         }
         if (encrypt_test == 0)
         {
+            // Printing error message and results of testing
             printf("Encrypted test failed!\n");
             printf("Result of the encryption:\n");
             for (int i = 0; i < 4; i++)
@@ -80,6 +82,7 @@ int main()
                 }
                 printf("\n");
             }
+            // Printing expected result
             printf("Needed result:\n");
             for (int i = 0; i < 4; i++)
             {
@@ -102,6 +105,7 @@ int main()
     decrypting_block(testing_example_decryption, key);
     for (int i = 0; i < 4; i++)
     {
+        // Checking row by row and rising error if rows aren't equal
         for (int j = 0; j < 4; j++)
         {
             if (testing_example_decryption[i][j] != state[i][j])
@@ -112,6 +116,7 @@ int main()
         }
         if (decrypt_test == 0)
         {
+            // Printing error message and results of testing
             printf("Decrypted test failed!\n");
             printf("Result of the decryption:\n");
             for (int i = 0; i < 4; i++)
@@ -122,6 +127,7 @@ int main()
                 }
                 printf("\n");
             }
+            // Printing expected result
             printf("Needed result:\n");
             for (int i = 0; i < 4; i++)
             {
@@ -141,7 +147,7 @@ int main()
     }
 
     // Testing SHA-256
-    // Testing phrase "test_to_check"
+    // Testing phrase for SHA-256 "test_to_check"
     int hash_test = 1;
     uint8_t hash[32];
     uint8_t hash_needed[32] = {0xcf, 0xd9, 0x9a, 0x51, 0x1e, 0xbd, 0x8b, 0xf1, 0x3f, 0x81, 0x9d, 0x01, 0x72, 0x52, 0x6e, 0x7b, 
@@ -158,6 +164,7 @@ int main()
     }
     if (hash_test == 0)
     {
+        // Printing error message about failing testing of hash function
         printf("Hash test failed!\n");
         printf("Result:        ");
         for (int i = 0; i < 32; i++)
@@ -165,6 +172,7 @@ int main()
             printf("%x ", hash[i]);
         }
         printf("\n");
+        // Printing expected result
         printf("Needed result: ");
         for (int i = 0; i < 32; i++)
         {
