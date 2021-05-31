@@ -1,6 +1,5 @@
 #include "logging.h"
 
-
 void print_time(FILE *f)
 {
     struct tm *tm_info;

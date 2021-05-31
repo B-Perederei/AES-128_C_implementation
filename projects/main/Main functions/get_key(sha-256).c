@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "get_key.h"
+#include "logging.h"
 
 // Code for hashing passwords to make it same length in 16 bytes (SHA-256 algorithm)
 // It's not a theme of course work, so it was taken from:
@@ -291,6 +292,10 @@ size_t string_length(const char *s)
 void get_key(char *password, uint8_t key[4][4])
 {
     uint8_t hash[32];
+    if (string_length(password) == 0)
+    {
+        LOG(LOGLEVEL_WARN, "Entered empty password"); 
+    }
     calc_sha_256(hash, password, string_length(password));
     int index = 0;
     // Shrinking hash to 16 bytes using mod 2 to every two bytes of hash and saving it to key
